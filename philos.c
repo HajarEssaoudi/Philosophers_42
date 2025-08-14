@@ -3,29 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 16:07:39 by root              #+#    #+#             */
-/*   Updated: 2025/07/23 16:36:56 by root             ###   ########.fr       */
+/*   Created: 2025/05/26 19:09:06 by hes-saou          #+#    #+#             */
+/*   Updated: 2025/08/14 11:18:55 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	create_philos(t_data *data)
+void	my_sleep(long long duration, t_data *data)
 {
-	int	i;
+	long long	start;
 
-	i = 0;
-	while (i < data->num_philo)
+	start = get_time_now(data);
+	while(!is_dead(data))
 	{
-		if (pthread_create(&data->philos[i].thread, NULL, philos_routine, &data->philos[i]) != 0)
+		if(get_time_now(data) - start >= duration)
 		{
-			ft_putstr_fd("pthread_create failed\n", 2);
-            destroy_philos(data, i);
-            return (0);
+			break ;
 		}
-		i++;
+		usleep(100);
 	}
-    return (1);
+}
+
+void	create_philos(t_data *data)
+{
+	int		i;
+
+	i = -1;
+	while(++i < data->num_philo)
+	{
+		pthread_create(&data->philos[i].thread, NULL, philos_routine, &data->philos[i]);
+	}
+	pthread_create(&data->death_thread, NULL, check_death, data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:42:26 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/07/22 16:50:03 by root             ###   ########.fr       */
+/*   Updated: 2025/08/14 11:02:31 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,20 @@ void	print_error(int flag)
 		ft_putstr_fd("the arguments should be > 0\n", 2);
 }
 
-int main (int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
 
-	memset(&data, 0, sizeof(t_data));
 	if (!check_args(ac, av))
 	{
-		clean_up(&data);
 		return (1);
 	}
-	if (!init_infos(&data, av))
+	if (!init_all(&data, av))
 	{
 		clean_up(&data);
 		return (1);
 	}
-	if (!init_philo(&data))
-	{	
-		clean_up(&data);
-		return (1);
-	}
-	if (!create_philos(&data))
-	{
-		clean_up(&data);
-		return (1);
-	}
-	destroy_philos(&data, data.num_philo);
-	clean_up(&data);
-	return(0);
+	create_philos(&data);
+	destroy_philos(&data);
+	return (0);
 }
