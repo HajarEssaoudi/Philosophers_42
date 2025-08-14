@@ -2,7 +2,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
 
-SRCS = main.c check_args_utils.c utils.c init_infos.c philos.c exit_philo.c routine.c\
+SRCS = main.c check_args_utils.c utils.c init_infos.c philos.c exit_philo.c routine.c clean_up.c\
 
 OBJS = $(SRCS:.c=.o)
 

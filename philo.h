@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:43:05 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 11:14:45 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:51:27 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-struct s_data;
+struct	s_data;
 
 typedef struct s_philosopher
 {

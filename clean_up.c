@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 15:32:59 by root              #+#    #+#             */
-/*   Updated: 2025/07/23 16:38:35 by root             ###   ########.fr       */
+/*   Created: 2025/08/14 12:09:45 by hes-saou          #+#    #+#             */
+/*   Updated: 2025/08/14 12:10:43 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,50 +16,37 @@ void	clean_up(t_data *data)
 {
 	int	i;
 
-	if (data->philos)
+	i = 0;
+	while (i < data->num_philo)
 	{
-		i = 0;
-		while (i < data->num_philo)
+		if (data->philos[i].meal_mutex)
 		{
-			if (data->philos[i].meal_mutex)
-			{
-				pthread_mutex_destroy(data->philos[i].meal_mutex);
-				free(data->philos[i].meal_mutex);
-				data->philos[i].meal_mutex = NULL;
-			}
-			i++;
+			pthread_mutex_destroy(data->philos[i].meal_mutex);
+			free(data->philos[i].meal_mutex);
 		}
+		i++;
 	}
-	if (data->forks)
+	i = 0;
+	while (i < data->num_philo)
 	{
-		i = 0;
-		while (i < data->num_philo)
-		{
-			pthread_mutex_destroy(&data->forks[i]);
-			i++;
-		}
-		free(data->forks);
-		data->forks = NULL;
+		pthread_mutex_destroy(data->philos[i].left_fork);
+		i++;
 	}
-    if (&data->print_mutex)
-	    pthread_mutex_destroy(&data->print_mutex);
-    if (&data->print_mutex)
-	    pthread_mutex_destroy(&data->death_mutex);
-	if (data->philos)
-	{
-		free(data->philos);
-		data->philos = NULL;
-	}
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->death_mutex);
+	free(data->forks);
+	free(data->philos);
 }
 
-void	destroy_philos(t_data *data, int last_created)
+void	destroy_philos(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < last_created)
+	i = -1;
+	while (++i < data->num_philo)
 	{
 		pthread_join(data->philos[i].thread, NULL);
-		i++;
 	}
+	pthread_join(data->death_thread, NULL);
+	clean_up(data);
 }
