@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:09:45 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 12:10:43 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:23:45 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,33 @@ void	destroy_philos(t_data *data)
 	}
 	pthread_join(data->death_thread, NULL);
 	clean_up(data);
+}
+
+int	is_full(t_data *data)
+{
+	int	full;
+
+	pthread_mutex_lock(&data->full_mutex);
+	full = data->is_full;
+	pthread_mutex_unlock(&data->full_mutex);
+	return (full);
+}
+
+void	set_full(t_data *data)
+{
+	pthread_mutex_lock(&data->full_mutex);
+	data->is_full = 1;
+	pthread_mutex_unlock(&data->full_mutex);
+}
+
+int	should_stop(t_data *data)
+{
+	int	stop;
+
+	pthread_mutex_lock(&data->death_mutex);
+	pthread_mutex_lock(&data->full_mutex);
+	stop = (data->someone_died || data->is_full);
+	pthread_mutex_unlock(&data->full_mutex);
+	pthread_mutex_unlock(&data->death_mutex);
+	return (stop);
 }

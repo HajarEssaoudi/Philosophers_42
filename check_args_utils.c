@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:44:43 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 11:07:01 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:18:58 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	ft_atoi(char *nptr)
 	sign = 1;
 	result = 0;
 	ptr = (char *)nptr;
-	while ((ptr[i] >= 9 && ptr[i] <= 13) || ptr[i] == 32)
-		i++;
 	if (ptr[i] == '-')
 	{
 		sign = -sign;
@@ -96,6 +94,8 @@ int	ft_atoi(char *nptr)
 	while (ptr[i] >= '0' && ptr[i] <= '9')
 	{
 		result = result * 10 + ptr[i] - '0';
+		if (result > INT_MAX || result < INT_MIN)
+			return (-1);
 		i++;
 	}
 	return (sign * result);

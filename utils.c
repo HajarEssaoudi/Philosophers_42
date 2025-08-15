@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:45:10 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 11:06:53 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:30:56 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print_action(t_philosopher *philo, const char *message)
 	long long	timestamp;
 
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (!philo->data->someone_died)
+	if (!is_dead(philo->data))
 	{
 		timestamp = get_time_now(philo->data);
 		printf("%lld %d %s\n", timestamp, philo->id, message);

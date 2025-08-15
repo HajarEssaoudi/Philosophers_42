@@ -6,13 +6,14 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:43:05 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 11:51:27 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:19:27 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -46,8 +47,9 @@ typedef struct s_data
 	long			meals_per_philo;
 	long			start_time;
 	pthread_t		death_thread;
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	full_mutex;
+	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
 	t_philosopher	*philos;
 }					t_data;
@@ -93,5 +95,7 @@ int					philo_died(t_data *data, int i);
 void				clean_up(t_data *data);
 void				destroy_philos(t_data *data);
 int					is_dead(t_data *data);
+int					is_full(t_data *data);
+void				set_full(t_data *data);
 
 #endif

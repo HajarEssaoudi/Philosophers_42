@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:01:33 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 11:58:03 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:24:52 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	init_mutexes(t_data *data)
 	}
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
+	pthread_mutex_init(&data->full_mutex, NULL);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 16:37:24 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 12:09:53 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:23:41 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	philo_died(t_data *data, int i)
 
 	pthread_mutex_lock(data->philos[i].meal_mutex);
 	time_since_last_meal = get_time_now(data) - data->philos[i].last_time_eat;
+	pthread_mutex_unlock(data->philos[i].meal_mutex);
 	if (data->time_to_die <= time_since_last_meal)
 	{
-		pthread_mutex_unlock(data->philos[i].meal_mutex);
 		pthread_mutex_lock(&data->death_mutex);
 		data->someone_died = 1;
 		pthread_mutex_unlock(&data->death_mutex);
@@ -29,7 +29,6 @@ int	philo_died(t_data *data, int i)
 		pthread_mutex_unlock(&data->print_mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(data->philos[i].meal_mutex);
 	return (0);
 }
 
@@ -59,14 +58,14 @@ void	*check_death(void *arg)
 	int		i;
 
 	data = (t_data *)arg;
-	while (!is_dead(data) && !data->is_full)
+	while (!should_stop(data))
 	{
 		i = -1;
 		while (++i < data->num_philo)
 			if (philo_died(data, i))
 				return (NULL);
 		if (data->meals_per_philo != -1 && all_philos_full(data))
-			data->is_full = 1;
+			set_full(data);
 		usleep(100);
 	}
 	return (NULL);

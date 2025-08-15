@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 19:09:06 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 12:02:42 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:51:04 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	handle_check(t_philosopher *philo)
 		my_sleep(philo->data->time_to_die, philo->data);
 		return (1);
 	}
-	if (philo->data->is_full || !philo->data->meals_per_philo)
+	if (is_full(philo->data) || !philo->data->meals_per_philo)
 		return (1);
 	return (0);
 }
