@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 16:41:30 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/14 12:01:45 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:02:29 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ void	philo_think(t_philosopher *philo)
 
 	if (is_dead(philo->data))
 		return ;
+	print_action(philo, "is thinking");
 	if (philo->data->num_philo % 2 == 0)
 		return ;
-	time_to_think = philo->data->time_to_eat;
-	print_action(philo, "is thinking");
-	my_sleep(time_to_think, philo->data);
+	if (philo->data->time_to_eat >= philo->data->time_to_sleep)
+	{
+		time_to_think = philo->data->time_to_eat;
+		my_sleep(time_to_think, philo->data);
+	}
 }

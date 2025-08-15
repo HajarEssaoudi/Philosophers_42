@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:43:05 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/15 16:19:27 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:29:24 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-struct	s_data;
+struct s_data;
 
 typedef struct s_philosopher
 {
@@ -97,5 +97,6 @@ void				destroy_philos(t_data *data);
 int					is_dead(t_data *data);
 int					is_full(t_data *data);
 void				set_full(t_data *data);
+int					should_stop(t_data *data);
 
 #endif
