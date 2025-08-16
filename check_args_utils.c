@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:44:43 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/15 16:18:58 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:59:49 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,14 @@ int	ft_atoi(char *nptr)
 	char	*ptr;
 	int		i;
 	int		sign;
-	int		result;
+	long	result;
 
 	i = 0;
 	sign = 1;
 	result = 0;
 	ptr = (char *)nptr;
 	if (ptr[i] == '-')
-	{
-		sign = -sign;
-		i++;
-	}
-	else if (ptr[i] == '+')
-		i++;
+		return (-1);
 	while (ptr[i] >= '0' && ptr[i] <= '9')
 	{
 		result = result * 10 + ptr[i] - '0';

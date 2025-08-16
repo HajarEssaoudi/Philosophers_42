@@ -6,15 +6,14 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:01:33 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/15 14:24:52 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:58:42 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_infos(t_data *data, char **av)
+int	init_args_check(t_data *data, char **av)
 {
-	data->start_time = get_time_ms();
 	data->num_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -23,6 +22,23 @@ int	init_infos(t_data *data, char **av)
 		data->meals_per_philo = ft_atoi(av[5]);
 	else
 		data->meals_per_philo = -1;
+	if (data->num_philo > 200)
+	{
+		print_error(4);
+		return (0);
+	}
+	if (data->time_to_die < 60 || data->time_to_eat < 60
+		|| data->time_to_sleep < 60)
+	{
+		print_error(5);
+		return (0);
+	}
+	return (1);
+}
+
+static int	init_infos(t_data *data)
+{
+	data->start_time = get_time_ms();
 	data->someone_died = 0;
 	data->is_full = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philo);
@@ -34,7 +50,7 @@ int	init_infos(t_data *data, char **av)
 	return (1);
 }
 
-int	init_philo(t_data *data)
+static int	init_philo(t_data *data)
 {
 	int	i;
 
@@ -61,7 +77,7 @@ int	init_philo(t_data *data)
 	return (1);
 }
 
-int	init_mutexes(t_data *data)
+static int	init_mutexes(t_data *data)
 {
 	int	i;
 
@@ -85,9 +101,9 @@ int	init_mutexes(t_data *data)
 	return (1);
 }
 
-int	init_all(t_data *data, char **av)
+int	init_all(t_data *data)
 {
-	if (!init_infos(data, av))
+	if (!init_infos(data))
 		return (0);
 	if (!init_philo(data))
 		return (0);
