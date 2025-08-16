@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 19:09:06 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/15 14:51:04 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/16 17:03:28 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	create_philos(t_data *data)
 
 int	handle_check(t_philosopher *philo)
 {
+	if (is_full(philo->data) || !philo->data->meals_per_philo)
+		return (1);
 	if (philo->data->num_philo == 1)
 	{
 		printf("%lld %d has taken a fork\n", get_time_now(philo->data),
@@ -49,8 +51,6 @@ int	handle_check(t_philosopher *philo)
 		my_sleep(philo->data->time_to_die, philo->data);
 		return (1);
 	}
-	if (is_full(philo->data) || !philo->data->meals_per_philo)
-		return (1);
 	return (0);
 }
 

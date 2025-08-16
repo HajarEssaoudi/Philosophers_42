@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:43:05 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/08/15 16:29:24 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:33:31 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ int					handle_check(t_philosopher *philo);
 int					verify_num(int ac, char **av);
 int					verify_sign(int ac, char **av);
 int					check_args(int ac, char **av);
+int					init_args_check(t_data *data, char **av);
 
 /* function of the time */
 long long			get_time_ms(void);
 long long			get_time_now(t_data *data);
 
 /*function of structs's initialization*/
-int					init_all(t_data *data, char **av);
+int					init_all(t_data *data);
 
 /*freeing fnctions*/
 void				clean_up(t_data *data);
